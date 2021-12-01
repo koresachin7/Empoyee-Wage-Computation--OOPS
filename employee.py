@@ -3,12 +3,11 @@
 * @Date: 2021-11-16
 * @Title :  To check employee using OOPS concept
 """
-import sys
+
 from logging import *
 import random
 import csv
 
-import employee
 
 company_list = []
 
@@ -36,12 +35,11 @@ class Employee:
             self.maximum_working_days = int(input("Enter Employee maximum working days : -"))
             self.maximum_working_hours = int(input("Enter Employee maximum working hours : -"))
 
-        except ValueError:
-
+        except Exception:
             print("Please Enter Integer values")
             warning("Please Enter Integer values")
 
-            employee.Employee.enter_data()
+        # employee.Employee.enter_data()
 
     def check_attendance(self):
         """
