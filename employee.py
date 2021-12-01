@@ -3,6 +3,7 @@
 * @Date: 2021-11-16
 * @Title :  To check employee using OOPS concept
 """
+import sys
 from logging import *
 import random
 import csv
@@ -195,6 +196,13 @@ if __name__ == "__main__":
     """
     LOG_FORMAT = '{lineno} *** {name} *** {asctime} *** {message}'
     basicConfig(filename='logfile.log', level=DEBUG, filemode='w', style='{', format=LOG_FORMAT)
+    # root = getLogger()
+    #
+    # handler = StreamHandler(sys.stdout)
+    # handler.setLevel(DEBUG)
+    # handler.setFormatter(LOG_FORMAT)
+    # root.addHandler(handler)
+
 
     while True:
         print("""
