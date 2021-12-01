@@ -3,10 +3,15 @@
 * @Date: 2021-11-16
 * @Title :  To check employee using OOPS concept
 """
+from logging import *
 import random
 import csv
 
+import employee
+
 company_list = []
+
+
 class Employee:
     is_full_time = 1
     is_part_time = 2
@@ -23,15 +28,19 @@ class Employee:
         self.total_working_hours = 0
 
     def enter_data(self):
+
         try:
             self.employee_name = input("Enter Employee name : -")
             self.wage_per_hour = int(input("Enter Employee Wage Per Hour : -"))
             self.maximum_working_days = int(input("Enter Employee maximum working days : -"))
             self.maximum_working_hours = int(input("Enter Employee maximum working hours : -"))
 
-        except Exception:
+        except ValueError:
 
             print("Please Enter Integer values")
+            warning("Please Enter Integer values")
+
+            employee.Employee.enter_data()
 
     def check_attendance(self):
         """
@@ -117,7 +126,9 @@ class Company:
                 self.employee_list.append(employee)
 
         except Exception:
-            print("Please Enter Integer values")
+            print("Please Enter Employee Quantity in Number")
+            warning("Please Enter Employee Quantity in Number")
+
 
             company.add_employee()
 
@@ -182,7 +193,8 @@ if __name__ == "__main__":
     Description:
                 To show menu of Employee
     """
-
+    LOG_FORMAT = '{lineno} *** {name} *** {asctime} *** {message}'
+    basicConfig(filename='logfile.log', level=DEBUG, filemode='w', style='{', format=LOG_FORMAT)
 
     while True:
         print("""
@@ -209,5 +221,4 @@ if __name__ == "__main__":
             break
         else:
             print(" Wrong choice ..........")
-
-
+            warning(" Wrong choice ..........")
