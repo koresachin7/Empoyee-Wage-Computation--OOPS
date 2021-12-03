@@ -8,7 +8,6 @@ from logging import *
 import random
 import csv
 
-
 company_list = []
 
 
@@ -38,8 +37,8 @@ class Employee:
         except Exception:
             print("Please Enter Integer values")
             warning("Please Enter Integer values")
+            # x.add_employee().enter_data()
 
-        # employee.Employee.enter_data()
 
     def check_attendance(self):
         """
@@ -103,7 +102,8 @@ class Company:
     list_length = 0
     total_wage = 0
 
-    def __init__(self):
+    def __init__(self, name):
+        self.name = name
         self.row = []
         self.mult_row = []
         self.company_list = company_list
@@ -123,35 +123,25 @@ class Company:
                 employee = Employee()
                 employee.enter_data()
                 self.employee_list.append(employee)
+                print(self.employee_list)
 
         except Exception:
             print("Please Enter Employee Quantity in Number")
             warning("Please Enter Employee Quantity in Number")
+            x.add_employee()
 
 
-            company.add_employee()
-
-    # def add_company(self):
-    #     """
-    #        Description:
-    #             this function To use for adding Company
-    #     """
-    #     self.count = 1
-    #     for company_obj in range(self.count):
-    #         company.enter_company_data()
-    #         self.company_list.append(company)
-
-    def enter_company_data(self):
-        self.company_name = input("Enter company name : -")
 
     def total_salary(self):
         """
         Description:
             this function To show total employee wage
+        Return:
+              this function return company list and object
         """
 
         for company_l in self.company_list:
-            print("company name is ", company_l.company_name)
+            print("company name is ", company_l.name)
             self.list_length += self.employee_num
             for employee in self.employee_list[self.list_start:self.list_length]:
                 print("Employee name is : -", employee.employee_name)
@@ -159,13 +149,14 @@ class Company:
                 print("Total working days : -", employee.working_days)
                 print("Total working Hours : -", employee.total_working_hours)
                 print("")
-                self.row = [company_l.company_name, employee.employee_name, employee.calculate_wage(),
+                self.row = [company_l.name, employee.employee_name, employee.calculate_wage(),
                             employee.working_days, employee.total_working_hours]
                 self.mult_row.append(self.row)
                 self.total_wage += employee.calculate_wage()
             print("total wage :", self.total_wage)
             self.total_wage = 0
             self.list_start += self.employee_num
+
 
     def csv_file(self):
         """
@@ -185,6 +176,24 @@ class Company:
 
             # writing the data rows
             csvwriter.writerows(self.mult_row)
+
+
+def get_company(company_list, company_name):
+    """
+    Description:
+        this function To use for adding Company
+    """
+    for company in company_list:
+        if company.name == company_name:
+            print("Company already exists ........")
+            print(company_list)
+            return company, company_list
+
+    company = Company(company_name)
+    company_list.append(company)
+    print(company_list)
+
+    return company, company_list
 
 
 if __name__ == "__main__":
@@ -212,17 +221,14 @@ if __name__ == "__main__":
                """)
         choice = int(input("Enter you choice :"))
         if choice == 1:
-            count = 1
-            for company_obj in range(count):
-                company = Company()
-                company.enter_company_data()
-                company_list.append(company)
+            company_name = input("Enter company name : -")
+            x, y = get_company(company_list, company_name)
         elif choice == 2:
-            company.add_employee()
+            x.add_employee()
         elif choice == 3:
-            company.total_salary()
+            x.total_salary()
         elif choice == 4:
-            company.csv_file()
+            x.csv_file()
         elif choice == 5:
             break
         else:
